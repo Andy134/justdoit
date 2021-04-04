@@ -10,7 +10,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-fadeIn 0.5s;
+    animation: App-logo-fadeIn 1s;
   }
 }
 

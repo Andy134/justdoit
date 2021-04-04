@@ -3,12 +3,12 @@ import logo from '../logo.svg';
 
 function Welcome({fadeOut}) {
 
-  const [counter, setCounter] = useState(2);
+  const [counter, setCounter] = useState(300);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCounter(prevCount => prevCount - 1);
-    }, 1000);
+      setCounter(prevCount => prevCount - 10);
+    }, 100);
     return () => {
       clearInterval(timer);
     };
