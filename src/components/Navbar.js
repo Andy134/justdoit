@@ -16,9 +16,7 @@ const useStyles = makeStyles((theme) =>
         },
         title: {
             flexGrow: 1,
-        },
-        logo: {
-            height: '24px'
+            paddingLeft: '.5rem'
         }
     }),
 );
