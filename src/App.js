@@ -8,9 +8,9 @@ import Zoom from '@material-ui/core/Zoom';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
-import Welcome from './components/Welcome';
-import Homepage from './pages/Homepage';
+import Navbar from './client/components/Navbar';
+import Welcome from './client/components/Welcome';
+import Homepage from './client/pages/Homepage';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -56,8 +56,6 @@ function ScrollTop(props) {
     </Zoom>
   );
 }
-
-
 
 function App() {
 
