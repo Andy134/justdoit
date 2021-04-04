@@ -1,4 +1,4 @@
-import { lightBlue, lightGreen, red } from '@material-ui/core/colors';
+import { lightGreen, red } from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
