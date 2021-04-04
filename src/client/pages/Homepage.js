@@ -1,97 +1,28 @@
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-
-const useStyles = makeStyles((theme) => ({
-    cards: {
-        marginTop: '.5rem'
-    },
-    card: {
-        display: 'flex',
-        '& > *': {
-            margin: theme.spacing(0),
-            width: '100%',
-            height: theme.spacing(16),
-        },
-        marginBottom: '.5rem'
-    },
-}));
+import { Box, Container, Divider, IconButton } from '@material-ui/core';
+import { AddCircle } from '@material-ui/icons';
+import Posts from '../components/Posts';
 
 function Homepage() {
-
-    const classes = useStyles();
-
     return (
         <>
-            <div className={classes.cards}>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-                <div className={classes.card}>
-                    <Paper variant="outlined" square />
-                </div>
-            </div>
+            <Nav />
+            <Posts />
+            <Container>
+                <Divider light />
+            </Container>
+            <Posts />
         </>
     );
+}
+
+function Nav() {
+    return (
+        <Box display="flex" flexDirection="row-reverse">
+            <IconButton aria-label="add">
+                <AddCircle color="secondary" />
+            </IconButton>
+        </Box>
+    )
 }
 
 export default Homepage;

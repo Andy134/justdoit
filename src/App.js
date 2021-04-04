@@ -1,4 +1,4 @@
-import { lightBlue, red } from '@material-ui/core/colors';
+import { lightBlue, lightGreen, red } from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -18,7 +18,7 @@ const appTheme = createMuiTheme({
       main: red['A200'],
     },
     primary: {
-      main: lightBlue[500],
+      main: lightGreen[500],
     }
   },
 });
@@ -78,7 +78,7 @@ function AppContain(props) {
       <ThemeProvider theme={appTheme}>
         <Navbar />
         <Toolbar id="back-to-top-anchor" />
-        <Container maxWidth={`lg`}>
+        <Container maxWidth={`sm`}>
           <Homepage />
         </Container>
         <ScrollTop {...props}>

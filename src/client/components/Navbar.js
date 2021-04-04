@@ -1,3 +1,4 @@
+import { Container } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -16,7 +17,6 @@ const useStyles = makeStyles((theme) =>
         },
         title: {
             flexGrow: 1,
-            paddingLeft: '.5rem'
         }
     }),
 );
@@ -40,12 +40,14 @@ export default function Navbar(props) {
         <React.Fragment>
             <ElevationScroll {...props}>
                 <AppBar color='inherit'>
-                    <Toolbar>
-                        <Typography variant="h6" className={classes.title}>
-                            JUST DO IT
+                    <Container disableGutters>
+                        <Toolbar>
+                            <Typography variant="h6" className={classes.title}>
+                                JUST DO IT
                         </Typography>
-                        <Button color="inherit">Login</Button>
-                    </Toolbar>
+                            <Button color="inherit">Login</Button>
+                        </Toolbar>
+                    </Container>
                 </AppBar>
             </ElevationScroll>
         </React.Fragment>
