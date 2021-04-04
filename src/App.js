@@ -1,7 +1,11 @@
-import { red } from '@material-ui/core/colors';
+import { lightBlue, red } from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Zoom from '@material-ui/core/Zoom';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -11,10 +15,49 @@ import Homepage from './pages/Homepage';
 const appTheme = createMuiTheme({
   palette: {
     secondary: {
-      main: red[500],
+      main: red['A200'],
+    },
+    primary: {
+      main: lightBlue[500],
     }
   },
 });
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));
+
+function ScrollTop(props) {
+  const { children, window } = props;
+  const classes = useStyles();
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.root}>
+        {children}
+      </div>
+    </Zoom>
+  );
+}
+
+
 
 function App() {
 
@@ -31,17 +74,20 @@ function App() {
   );
 }
 
-function AppContain() {
+function AppContain(props) {
   return (
     <>
       <ThemeProvider theme={appTheme}>
         <Navbar />
-        <Toolbar />
+        <Toolbar id="back-to-top-anchor" />
         <Container maxWidth={`lg`}>
-
           <Homepage />
-
         </Container>
+        <ScrollTop {...props}>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
       </ThemeProvider>
     </>
   )
