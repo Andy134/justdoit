@@ -1,3 +1,4 @@
+import { Container } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -44,7 +45,7 @@ export default function Navbar(props) {
                 <AppBar color='inherit'>
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
-                            JDI
+                            JUST DO IT
                         </Typography>
                         <Button color="inherit">Login</Button>
                     </Toolbar>
