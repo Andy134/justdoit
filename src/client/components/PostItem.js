@@ -35,14 +35,14 @@ export default function PostItem({ data, type }) {
     };
 
     const handleToggle = () => {
-        setChecked(!checked)
+        setChecked((pre) => !pre)
     };
 
     useEffect(() => {
         if (type === PostType.COMPLETE && checked === false) {
             setDisplay(false)
         }
-        else if(type === PostType.IN_PROGRESS && checked === true){
+        else if (type === PostType.IN_PROGRESS && checked === true) {
             setDisplay(false)
         }
     }, [checked])
@@ -62,7 +62,7 @@ export default function PostItem({ data, type }) {
                         <ListItemSecondaryAction>
                             <Checkbox
                                 edge="end"
-                                color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}
+                                color={type === PostType.IN_PROGRESS ? "secondary" : "primary"}
                                 onChange={handleToggle}
                                 checked={checked}
                                 inputProps={{ 'aria-labelledby': labelId }}
