@@ -1,4 +1,4 @@
-import { lightGreen, red } from '@material-ui/core/colors';
+import { lightBlue, red } from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ const appTheme = createMuiTheme({
       main: red['A200'],
     },
     primary: {
-      main: lightGreen[500],
+      main: lightBlue[300],
     }
   },
 });

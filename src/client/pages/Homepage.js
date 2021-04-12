@@ -19,7 +19,6 @@ const lst2 = [
 ];
 
 function Homepage() {
-
     return (
         <>
             <Nav />
