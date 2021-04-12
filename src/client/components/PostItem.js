@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonRevese: {
         marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(1)
     }
 }));
 
@@ -39,10 +38,7 @@ export default function PostItem({ data, type }) {
     };
 
     useEffect(() => {
-        if (type === PostType.COMPLETE && checked === false) {
-            setDisplay(false)
-        }
-        else if (type === PostType.IN_PROGRESS && checked === true) {
+        if ((type === PostType.COMPLETE && checked === false) || (type === PostType.IN_PROGRESS && checked === true)) {
             setDisplay(false)
         }
     }, [checked])

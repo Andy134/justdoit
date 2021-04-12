@@ -7,10 +7,12 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Zoom from '@material-ui/core/Zoom';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Navbar from './client/components/Navbar';
 import Welcome from './client/components/Welcome';
 import Homepage from './client/pages/Homepage';
+import Login from './client/pages/Login';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -76,11 +78,23 @@ function AppContain(props) {
   return (
     <>
       <ThemeProvider theme={appTheme}>
-        <Navbar />
-        <Toolbar id="back-to-top-anchor" />
-        <Container maxWidth={`sm`}>
-          <Homepage />
-        </Container>
+        <Router>
+
+          <Navbar />
+          <Toolbar id="back-to-top-anchor" />
+
+          <Container maxWidth={`sm`}>
+            <Switch>
+              <Route path="/" exact>
+                <Homepage />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+            </Switch>
+          </Container>
+
+        </Router>
         <ScrollTop {...props}>
           <Fab color="secondary" size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />

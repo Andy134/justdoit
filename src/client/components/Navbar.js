@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) =>
             marginRight: theme.spacing(2),
         },
         title: {
-            flexGrow: 1,
+            flexGrow: 1
         }
     }),
 );
@@ -36,16 +37,19 @@ function ElevationScroll(props) {
 
 export default function Navbar(props) {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <React.Fragment>
             <ElevationScroll {...props}>
                 <AppBar color='inherit'>
                     <Container disableGutters>
                         <Toolbar>
-                            <Typography variant="h6" className={classes.title}>
-                                JUST DO IT
-                        </Typography>
-                            <Button color="inherit">Login</Button>
+                            <div className={classes.title}>
+                                <Typography variant="h6" onClick={()=>history.push('/')}>
+                                    JDI
+                                </Typography>
+                            </div>
+                            <Button onClick={()=>history.push('/login')} color="inherit" >Login</Button>
                         </Toolbar>
                     </Container>
                 </AppBar>
