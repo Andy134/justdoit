@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useEffect } from 'react';
-import * as PostType from '../constants/PostType';
+import * as PostType from '../../constants/PostType';
 
 const useStyles = makeStyles((theme) => ({
     nested: {

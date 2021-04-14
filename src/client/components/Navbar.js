@@ -46,7 +46,7 @@ export default function Navbar(props) {
                         <Toolbar>
                             <div className={classes.title}>
                                 <Typography variant="h6" onClick={()=>history.push('/')}>
-                                    JDI
+                                    MEMO
                                 </Typography>
                             </div>
                             <Button onClick={()=>history.push('/login')} color="inherit" >Login</Button>

@@ -1,8 +1,8 @@
 import { Box, Divider, IconButton } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
 import Posts from '../components/Posts';
-import * as Critical from '../constants/Critical';
-import * as PostType from '../constants/PostType';
+import * as Critical from '../../constants/Critical';
+import * as PostType from '../../constants/PostType';
 
 const lst1 = [
     { id: 1001, title: "Todo 1", content: "content here 1", critical: Critical.IMPORTANT },

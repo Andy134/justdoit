@@ -1,4 +1,5 @@
-import { lightBlue, red } from '@material-ui/core/colors';
+import { Typography } from '@material-ui/core';
+import { blue, red } from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
 import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -7,6 +8,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Zoom from '@material-ui/core/Zoom';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import Navbar from './client/components/Navbar';
@@ -20,7 +22,7 @@ const appTheme = createMuiTheme({
       main: red['A200'],
     },
     primary: {
-      main: lightBlue[300],
+      main: blue['500'],
     }
   },
 });
@@ -75,8 +77,10 @@ function App() {
 }
 
 function AppContain(props) {
+  const authentication = useSelector(state => state.authentication)
   return (
     <>
+      <Typography>{JSON.stringify(authentication)}</Typography>
       <ThemeProvider theme={appTheme}>
         <Router>
 

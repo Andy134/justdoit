@@ -9,9 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
-import { userActions } from './../../redux/actions/user.action';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,11 +33,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
     const classes = useStyles();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(userActions.logout())
-    }, [])
 
     var initState = {
         email: "",
@@ -50,7 +43,6 @@ export default function Login() {
     function handleOnSubmit(e) {
         e.preventDefault()
         e.stopPropagation()
-        dispatch(userActions.login(form.email, form.password));
     }
 
     function handleChange(e) {
