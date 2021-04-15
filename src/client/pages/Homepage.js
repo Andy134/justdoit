@@ -1,39 +1,38 @@
 import { Box, Divider, IconButton } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
-import Posts from '../components/Posts';
-import * as Critical from '../../constants/Critical';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import * as PostType from '../../constants/PostType';
-
-const lst1 = [
-    { id: 1001, title: "Todo 1", content: "content here 1", critical: Critical.IMPORTANT },
-    { id: 1002, title: "Todo 2", content: "content here 2", critical: Critical.IMPORTANT },
-    { id: 1003, title: "Todo 3", content: "content here 3", critical: Critical.TODO },
-    { id: 1004, title: "Todo 4", content: "content here 4", critical: Critical.TODO },
-    { id: 1005, title: "Todo 5", content: "content here 5", critical: Critical.MINOR }
-];
-const lst2 = [
-    { id: 1006, title: "Todo complete 1", content: "content here 6", critical: Critical.IMPORTANT },
-    { id: 1007, title: "Todo complete 2", content: "content here 7", critical: Critical.TODO },
-    { id: 1008, title: "Todo complete 3", content: "content here 8", critical: Critical.TODO },
-    { id: 1009, title: "Todo complete 4", content: "content here 9", critical: Critical.MINOR }
-];
+import CreateModal from '../components/CreateModal';
+import Posts from '../components/Posts';
 
 function Homepage() {
+
+    const todo = useSelector(state => state.todo)
+    const [showModal, setShowModal] = useState(false)
+    function handleShowModal(){
+        setShowModal(true)
+    }
+    function handleCloseModal(){
+        setShowModal(false)
+    }
+
     return (
         <>
-            <Nav />
-            <Posts type={PostType.IN_PROGRESS} data={lst1} />
+            <Nav showModal={handleShowModal}/>
+            <Posts type={PostType.IN_PROGRESS} data={todo.todos} />
             <Divider light />
-            <Posts type={PostType.COMPLETE} data={lst2} />
+            <Posts type={PostType.COMPLETE} data={todo.done} />
+            <CreateModal show={showModal} handleCloseModal={handleCloseModal}/>
         </>
     );
 }
 
-function Nav() {
+function Nav({showModal}) {
     return (
         <Box display="flex" flexDirection="row-reverse">
-            <IconButton aria-label="add">
-                <AddCircle color="secondary" />
+            <IconButton aria-label="add" onClick={showModal}>
+                <AddCircle color="secondary"/>
             </IconButton>
         </Box>
     )

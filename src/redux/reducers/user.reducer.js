@@ -1,4 +1,4 @@
-import {userConstants} from "../user.constants"
+import {userConstants} from "../../constants/user.constants"
 
 let token = JSON.parse(localStorage.getItem('token'))
 const initialState = token ? { loggedIn: true, token } : {}

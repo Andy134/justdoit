@@ -8,7 +8,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import * as PostType from '../../constants/PostType';
+import { todoConstants } from '../../constants/todo.constants';
 
 const useStyles = makeStyles((theme) => ({
     nested: {
@@ -20,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PostItem({ data, type }) {
+    const dispatch = useDispatch();
     const { id, title, content, critical } = data
 
     const [checked, setChecked] = React.useState(type === PostType.IN_PROGRESS ? false : true);
     const [open, setOpen] = React.useState(false);
-    const [display, setDisplay] = React.useState(true);
 
     const classes = useStyles();
     const labelId = `checkbox-list-secondary-label-${id}`;
@@ -34,54 +36,58 @@ export default function PostItem({ data, type }) {
     };
 
     const handleToggle = () => {
-        setChecked((pre) => !pre)
+
+        setChecked((pre)=>!pre)
+
+        setTimeout(() => {
+            dispatch({
+                type: todoConstants.UPDATE_STATUS,
+                id: data.id,
+                postType: type
+            })
+        }, 250);
     };
 
     useEffect(() => {
-        if ((type === PostType.COMPLETE && checked === false) || (type === PostType.IN_PROGRESS && checked === true)) {
-            setDisplay(false)
-        }
-    }, [checked])
+        setChecked(type === PostType.IN_PROGRESS ? false : true)
+        setOpen(false)
+    }, [data])
 
     return (
         <>
-            {display &&
-                <>
-                    <ListItem button onClick={handleClick}>
-                        <ListItemAvatar>
-                            <Avatar
-                                alt={`Avatar n°${critical + 1}`}
-                                src={`/static/images/avatar/${critical}.png`}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText id={labelId} primary={title} />
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge="end"
-                                color={type === PostType.IN_PROGRESS ? "secondary" : "primary"}
-                                onChange={handleToggle}
-                                checked={checked}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                                className={classes.buttonRevese}
-                            />
-                            <IconButton edge="end" aria-label="more" className={classes.buttonRevese}>
-                                <MoreVertIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
+            <ListItem button onClick={handleClick}>
+                <ListItemAvatar>
+                    <Avatar
+                        alt={`Avatar n°${critical + 1}`}
+                        src={`/static/images/avatar/${critical}.png`}
+                    />
+                </ListItemAvatar>
+                <ListItemText id={labelId} primary={title} />
+                <ListItemSecondaryAction>
+                    <Checkbox
+                        edge="end"
+                        color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}
+                        onChange={handleToggle}
+                        checked={checked}
+                        inputProps={{ 'aria-labelledby': labelId }}
+                        className={classes.buttonRevese}
+                    />
+                    <IconButton edge="end" aria-label="more" className={classes.buttonRevese}>
+                        <MoreVertIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
 
-                    {/* Collapse */}
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                            <ListItem button className={classes.nested}>
-                                <Typography variant="body2" color="textSecondary">
-                                    {content}
-                                </Typography>
-                            </ListItem>
-                        </List>
-                    </Collapse>
-                </>
-            }
+            {/* Collapse */}
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    <ListItem button className={classes.nested}>
+                        <Typography variant="body2" color="textSecondary">
+                            {content}
+                        </Typography>
+                    </ListItem>
+                </List>
+            </Collapse>
         </>
     )
 }
