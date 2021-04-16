@@ -28,7 +28,7 @@ function Welcome({ fadeOut }) {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: todoConstants.ADD_NEW, todos: lst1, done: lst2 })
+    dispatch({ type: todoConstants.GET_DATA, todos: lst1, done: lst2 })
   }, [])
 
   const [counter, setCounter] = useState(300);

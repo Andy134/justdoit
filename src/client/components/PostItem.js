@@ -1,4 +1,4 @@
-import { Collapse, IconButton, List, Typography } from '@material-ui/core';
+import { Collapse, List, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItem from '@material-ui/core/ListItem';
@@ -6,11 +6,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as PostType from '../../constants/PostType';
 import { todoConstants } from '../../constants/todo.constants';
+import PostMenu from './PostMenu';
 
 const useStyles = makeStyles((theme) => ({
     nested: {
@@ -37,7 +37,7 @@ export default function PostItem({ data, type }) {
 
     const handleToggle = () => {
 
-        setChecked((pre)=>!pre)
+        setChecked((pre) => !pre)
 
         setTimeout(() => {
             dispatch({
@@ -64,6 +64,8 @@ export default function PostItem({ data, type }) {
                 </ListItemAvatar>
                 <ListItemText id={labelId} primary={title} />
                 <ListItemSecondaryAction>
+
+                    {type === PostType.IN_PROGRESS && <PostMenu />}
                     <Checkbox
                         edge="end"
                         color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}
@@ -72,9 +74,7 @@ export default function PostItem({ data, type }) {
                         inputProps={{ 'aria-labelledby': labelId }}
                         className={classes.buttonRevese}
                     />
-                    <IconButton edge="end" aria-label="more" className={classes.buttonRevese}>
-                        <MoreVertIcon />
-                    </IconButton>
+
                 </ListItemSecondaryAction>
             </ListItem>
 

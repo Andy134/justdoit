@@ -10,11 +10,18 @@ export function todo(state, action) {
     switch (action.type) {
         case todoConstants.FETCH_DATA:
             return state
-        case todoConstants.ADD_NEW:
+        case todoConstants.GET_DATA:
             let { todos, done } = action;
             state = {
                 todos: todos,
                 done: done
+            };
+            return state
+        case todoConstants.ADD_NEW:
+            let { todo } = action;
+            state = {
+                ...state,
+                todos: [].concat(todo).concat(state.todos)
             };
             return state
         case todoConstants.UPDATE_STATUS:
