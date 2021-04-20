@@ -1,8 +1,10 @@
 import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/core"
 import { MoreVert } from "@material-ui/icons";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Critical } from "../../constants/Critical";
-import {todoConstants} from "../../constants/todo.constants"
+import { PostType } from "../../constants/PostType";
+import { todoConstants } from "../../constants/todo.constants"
 
 const useStyles = makeStyles((theme) => ({
     buttonRevese: {
@@ -10,9 +12,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PostMenu({id}) {
+export default function PostMenu({ id, type }) {
 
     const classes = useStyles();
+
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -27,11 +31,12 @@ export default function PostMenu({id}) {
     const handleUpdateStatus = (e) => {
         setAnchorEl(null);
         let value = e.target.value;
-        dispatchEvent({type: todoConstants.UPDATE_CRITICAL, id: id, critical: value})
+        dispatch({ type: todoConstants.UPDATE_CRITICAL, id: id, critical: value })
     };
 
     const handleDelete = () => {
         setAnchorEl(null);
+        dispatch({ type: todoConstants.DELETE_DATA, id: id });
     };
 
     return (

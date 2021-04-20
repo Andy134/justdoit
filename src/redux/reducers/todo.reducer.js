@@ -7,7 +7,7 @@ const initState = {
 }
 
 export function todo(state, action) {
-    const {id} = action
+    const { id } = action
     switch (action.type) {
         case todoConstants.FETCH_DATA:
             return state
@@ -38,14 +38,19 @@ export function todo(state, action) {
                 return { ...state, todos: [].concat(removed).concat(state.todos), done: state.done }
             }
         case todoConstants.UPDATE_CRITICAL:
-            const {critical} = action;
-            let updates = state.todos.map((todo)=>{
-                if(todo.id===id){
+            const { critical } = action;
+            let updates = state.todos.map((todo) => {
+                if (todo.id === id) {
                     todo.critical = critical
                 }
                 return todo
             });
-            return {...state, todos : updates}
+            return { ...state, todos: updates }
+        case todoConstants.DELETE_DATA:
+            let deleteIndex = state.todos.findIndex((todo) => todo.id === id);
+            let deleting = state.todos;
+            deleting.splice(deleteIndex, 1)
+            return { ...state, todos: deleting}
         default:
             return initState
     }
