@@ -1,4 +1,4 @@
-import { Collapse, IconButton, List, Typography } from '@material-ui/core';
+import { Collapse, List, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItem from '@material-ui/core/ListItem';
@@ -6,7 +6,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import { DeleteSharp } from '@material-ui/icons';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import * as PostType from '../../constants/PostType';
@@ -35,11 +34,7 @@ export default function PostItem({ data, type }) {
     const handleClick = () => {
         setOpen(!open);
     };
-
-    const handleDelete = () => {
-        dispatch({ type: todoConstants.DELETE_DATA, id: id });
-    }
-
+    
     const handleToggle = () => {
 
         setChecked((pre) => !pre)
@@ -69,7 +64,7 @@ export default function PostItem({ data, type }) {
                 </ListItemAvatar>
                 <ListItemText id={labelId} primary={title} />
                 <ListItemSecondaryAction>
-                    {type === PostType.IN_PROGRESS && <PostMenu id={id} />}
+                    {type === PostType.IN_PROGRESS && <PostMenu id={id} critical={critical}/>}
                     <Checkbox
                         edge="end"
                         color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}

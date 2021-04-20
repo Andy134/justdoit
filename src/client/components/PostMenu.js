@@ -1,10 +1,9 @@
-import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/core"
+import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Critical } from "../../constants/Critical";
-import { PostType } from "../../constants/PostType";
-import { todoConstants } from "../../constants/todo.constants"
+import { todoConstants } from "../../constants/todo.constants";
 
 const useStyles = makeStyles((theme) => ({
     buttonRevese: {
@@ -12,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PostMenu({ id, type }) {
+export default function PostMenu({ id, critical }) {
 
     const classes = useStyles();
 
@@ -50,10 +49,11 @@ export default function PostMenu({ id, type }) {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                value={critical}
             >
                 {
                     Object.entries(Critical).map((item) => {
-                        return <MenuItem onClick={handleUpdateStatus} value={item[1]}>
+                        return <MenuItem onClick={handleUpdateStatus} value={item[1]} selected={item[1] === critical}>
                             {item[0]}
                         </MenuItem>
                     })
