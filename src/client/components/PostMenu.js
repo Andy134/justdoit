@@ -2,6 +2,7 @@ import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/co
 import { MoreVert } from "@material-ui/icons";
 import React from "react";
 import { Critical } from "../../constants/Critical";
+import {todoConstants} from "../../constants/todo.constants"
 
 const useStyles = makeStyles((theme) => ({
     buttonRevese: {
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PostMenu() {
+export default function PostMenu({id}) {
 
     const classes = useStyles();
 
@@ -20,6 +21,16 @@ export default function PostMenu() {
     };
 
     const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    const handleUpdateStatus = (e) => {
+        setAnchorEl(null);
+        let value = e.target.value;
+        dispatchEvent({type: todoConstants.UPDATE_CRITICAL, id: id, critical: value})
+    };
+
+    const handleDelete = () => {
         setAnchorEl(null);
     };
 
@@ -37,14 +48,13 @@ export default function PostMenu() {
             >
                 {
                     Object.entries(Critical).map((item) => {
-                        console.log(item);
-                        return <MenuItem onClick={handleClose} value={item[1]}>
+                        return <MenuItem onClick={handleUpdateStatus} value={item[1]}>
                             {item[0]}
                         </MenuItem>
                     })
                 }
                 <Divider />
-                <MenuItem onClick={handleClose}>Delete</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
             </Menu>
         </>
     )

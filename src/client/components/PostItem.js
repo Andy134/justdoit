@@ -65,7 +65,7 @@ export default function PostItem({ data, type }) {
                 <ListItemText id={labelId} primary={title} />
                 <ListItemSecondaryAction>
 
-                    {type === PostType.IN_PROGRESS && <PostMenu />}
+                    {type === PostType.IN_PROGRESS && <PostMenu id={id}/>}
                     <Checkbox
                         edge="end"
                         color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}
