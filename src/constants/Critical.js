@@ -1,5 +1,5 @@
 export const Critical = {
-    'IMPORTANT': 0,
-    'TODO': 1,
-    'MINOR': 2
+    'Important': 0,
+    'Todo': 1,
+    'Minor': 2
 }
