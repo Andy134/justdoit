@@ -1,7 +1,9 @@
-import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/core"
+import { Divider, IconButton, makeStyles, Menu, MenuItem } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Critical } from "../../constants/Critical";
+import { todoConstants } from "../../constants/todo.constants";
 
 const useStyles = makeStyles((theme) => ({
     buttonRevese: {
@@ -9,9 +11,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PostMenu() {
+export default function PostMenu({ id, critical }) {
 
     const classes = useStyles();
+
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -21,6 +25,17 @@ export default function PostMenu() {
 
     const handleClose = () => {
         setAnchorEl(null);
+    }
+
+    const handleUpdateStatus = (e) => {
+        setAnchorEl(null);
+        let value = e.target.value;
+        dispatch({ type: todoConstants.UPDATE_CRITICAL, id: id, critical: value })
+    };
+
+    const handleDelete = () => {
+        setAnchorEl(null);
+        dispatch({ type: todoConstants.DELETE_DATA, id: id });
     };
 
     return (
@@ -34,17 +49,17 @@ export default function PostMenu() {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                value={critical}
             >
                 {
                     Object.entries(Critical).map((item) => {
-                        console.log(item);
-                        return <MenuItem onClick={handleClose} value={item[1]}>
+                        return <MenuItem onClick={handleUpdateStatus} value={item[1]} selected={item[1] === critical}>
                             {item[0]}
                         </MenuItem>
                     })
                 }
                 <Divider />
-                <MenuItem onClick={handleClose}>Delete</MenuItem>
+                <MenuItem onClick={handleDelete}>Delete</MenuItem>
             </Menu>
         </>
     )

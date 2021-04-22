@@ -34,7 +34,7 @@ export default function PostItem({ data, type }) {
     const handleClick = () => {
         setOpen(!open);
     };
-
+    
     const handleToggle = () => {
 
         setChecked((pre) => !pre)
@@ -64,8 +64,7 @@ export default function PostItem({ data, type }) {
                 </ListItemAvatar>
                 <ListItemText id={labelId} primary={title} />
                 <ListItemSecondaryAction>
-
-                    {type === PostType.IN_PROGRESS && <PostMenu />}
+                    {type === PostType.IN_PROGRESS && <PostMenu id={id} critical={critical}/>}
                     <Checkbox
                         edge="end"
                         color={type === PostType.IN_PROGRESS ? "primary" : "secondary"}
