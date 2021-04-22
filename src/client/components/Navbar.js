@@ -50,6 +50,7 @@ export default function Navbar(props) {
                                 </Typography>
                             </div>
                             <Button onClick={()=>history.push('/login')} color="inherit" >Login</Button>
+                            <Button onClick={()=>history.push('/signup')} color="inherit" >Signup</Button>
                         </Toolbar>
                     </Container>
                 </AppBar>
