@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import { useAuth } from '../../autherns/AuthContext';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -38,6 +39,17 @@ function ElevationScroll(props) {
 export default function Navbar(props) {
     const classes = useStyles();
     const history = useHistory();
+    const { currentUser, logout } = useAuth();
+    async function handleLogout() {
+        try {
+            await logout()
+            history.push('/login')
+        }
+        catch {
+            alert("Fail to logout")
+        }
+
+    }
     return (
         <React.Fragment>
             <ElevationScroll {...props}>
@@ -45,11 +57,14 @@ export default function Navbar(props) {
                     <Container disableGutters>
                         <Toolbar>
                             <div className={classes.title}>
-                                <Typography variant="h6" onClick={()=>history.push('/')}>
+                                <Typography variant="h6" onClick={() => history.push('/')}>
                                     MEMO
                                 </Typography>
                             </div>
-                            <Button onClick={()=>history.push('/login')} color="inherit" >Login</Button>
+                            {currentUser
+                                ? <Typography variant="caption">{currentUser.email}&nbsp;&nbsp;|&nbsp;&nbsp;<span variant="caption" onClick={handleLogout}>Logout</span></Typography>
+                                : <Button onClick={() => history.push('/login')} color="inherit" >Login</Button>
+                            }
                         </Toolbar>
                     </Container>
                 </AppBar>

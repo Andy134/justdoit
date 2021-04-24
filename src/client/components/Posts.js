@@ -15,17 +15,17 @@ function Posts({ type, data, ...props }) {
     const classes = useStyles();
     return (
         <>
-            {!data 
-            ?
-            <Typography variant="body1">No data</Typography>
-            :
-            <List className={classes.root}>
-                {data.map((item, index) => {
-                    return (
-                        <PostItem key={index} data={item} type={type}/>
-                    );
-                })}
-            </List>}
+            {!data
+                ?
+                <Typography variant="body1">No data</Typography>
+                :
+                <List className={classes.root}>
+                    {data.map((item, index) => {
+                        return (
+                            <PostItem key={index} data={item} type={type} />
+                        );
+                    })}
+                </List>}
         </>
     );
 }

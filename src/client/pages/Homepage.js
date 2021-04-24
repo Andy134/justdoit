@@ -10,29 +10,32 @@ function Homepage() {
 
     const todo = useSelector(state => state.todo)
     const [showModal, setShowModal] = useState(false)
-    function handleShowModal(){
+
+    function handleShowModal() {
         setShowModal(true)
     }
-    function handleCloseModal(){
+    function handleCloseModal() {
         setShowModal(false)
     }
 
     return (
         <>
-            <Nav showModal={handleShowModal}/>
+            <Nav showModal={handleShowModal} />
             <Posts type={PostType.IN_PROGRESS} data={todo.todos} />
-            <Divider light />
+            {todo.todos.length > 0 && todo.done.length > 0 && <Divider light />}
             <Posts type={PostType.COMPLETE} data={todo.done} />
-            <CreateModal show={showModal} handleCloseModal={handleCloseModal}/>
+            <CreateModal show={showModal} handleCloseModal={handleCloseModal} />
         </>
     );
+
+
 }
 
-function Nav({showModal}) {
+function Nav({ showModal }) {
     return (
         <Box display="flex" flexDirection="row-reverse">
             <IconButton aria-label="add" onClick={showModal}>
-                <AddCircle color="secondary"/>
+                <AddCircle color="secondary" />
             </IconButton>
         </Box>
     )
