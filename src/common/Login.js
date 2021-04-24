@@ -9,8 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useState } from 'react';
-import {Link, useHistory} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../autherns/AuthContext';
+import { alertConstant, alertSeverity } from '../constants/alert.constants';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     var initState = {
         email: "",
@@ -51,7 +54,7 @@ export default function Login() {
             await login(form.email, form.password)
             history.push("/")
         } catch (error) {
-            alert("Failed to log in")
+            dispatch({ type: alertConstant.SHOW_ALERT, message: error.message, severity: alertSeverity.Error})
             console.log(error)
         }
         setLoading(false)

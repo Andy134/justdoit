@@ -13,9 +13,10 @@ import { AuthProvider } from './autherns/AuthContext';
 import Navbar from './client/components/Navbar';
 import Welcome from './client/components/Welcome';
 import Homepage from './client/pages/Homepage';
+import AlertCommon from './common/AlertCommon';
 import Login from './common/Login';
-import SignUp from './common/Signup';
 import PrivateRoute from './common/PrivateRoute';
+import SignUp from './common/Signup';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -63,13 +64,10 @@ function ScrollTop(props) {
 }
 
 function App() {
-
   const [welcome, showWelcome] = useState(true);
-
   function handleFadeOut() {
     showWelcome(false)
   }
-
   return (
     <div className="App">
       {welcome ? <Welcome fadeOut={handleFadeOut} /> : <AppContain />}
@@ -86,6 +84,7 @@ function AppContain(props) {
             <Navbar />
             <Toolbar id="back-to-top-anchor" />
             <Container maxWidth={`sm`}>
+              <AlertCommon/>
               <Switch>
                 <PrivateRoute path="/" exact component={() => <Homepage />} />
                 <Route path="/login">

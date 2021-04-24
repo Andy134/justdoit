@@ -9,9 +9,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../autherns/AuthContext';
+import { alertConstant, alertSeverity } from '../constants/alert.constants';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,7 +40,7 @@ export default function SignUp() {
     const { signup } = useAuth();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: "", password: "" });
-
+    const dispatch = useDispatch()
     const history = useHistory()
 
     function handleChange(e) {
@@ -50,9 +52,9 @@ export default function SignUp() {
         try {
             setLoading(true)
             await signup(form.email, form.password)
-            history.push("/login")
+            history.push("/")
         } catch (error) {
-            alert("Failed to create an account")
+            dispatch({ type: alertConstant.SHOW_ALERT, severity: alertSeverity.Error, message: error.message })
             console.log(error)
         }
         setLoading(false)
