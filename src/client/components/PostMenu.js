@@ -52,8 +52,8 @@ export default function PostMenu({ id, critical }) {
                 value={critical}
             >
                 {
-                    Object.entries(Critical).map((item) => {
-                        return <MenuItem onClick={handleUpdateStatus} value={item[1]} selected={item[1] === critical}>
+                    Object.entries(Critical).map((item, index) => {
+                        return <MenuItem key={index} onClick={handleUpdateStatus} value={item[1]} selected={item[1] === critical}>
                             {item[0]}
                         </MenuItem>
                     })

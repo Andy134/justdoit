@@ -15,6 +15,7 @@ import Welcome from './client/components/Welcome';
 import Homepage from './client/pages/Homepage';
 import Login from './common/Login';
 import SignUp from './common/Signup';
+import PrivateRoute from './common/PrivateRoute';
 
 const appTheme = createMuiTheme({
   palette: {
@@ -86,9 +87,7 @@ function AppContain(props) {
             <Toolbar id="back-to-top-anchor" />
             <Container maxWidth={`sm`}>
               <Switch>
-                <Route path="/" exact>
-                  <Homepage />
-                </Route>
+                <PrivateRoute path="/" exact component={() => <Homepage />} />
                 <Route path="/login">
                   <Login />
                 </Route>
@@ -99,6 +98,7 @@ function AppContain(props) {
             </Container>
           </Router>
         </AuthProvider>
+        <Toolbar/>
         <ScrollTop {...props}>
           <Fab color="secondary" size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />

@@ -4,27 +4,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
+import {Link} from 'react-router-dom';
 import { useAuth } from '../autherns/AuthContext';
-
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,9 +35,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: "", password: "" });
+
+    const history = useHistory()
+
     function handleChange(e) {
         const { id, value } = e.target;
         setForm(() => ({ ...form, [id]: value }))
@@ -60,7 +50,7 @@ export default function SignUp() {
         try {
             setLoading(true)
             await signup(form.email, form.password)
-            alert("Login successfully")
+            history.push("/login")
         } catch (error) {
             alert("Failed to create an account")
             console.log(error)
@@ -75,9 +65,6 @@ export default function SignUp() {
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
-                </Typography>
-                <Typography component="h2" variant="h5">
-                    {currentUser && currentUser.email}
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
@@ -142,14 +129,15 @@ export default function SignUp() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={loading}
                     >
                         Sign Up
-          </Button>
+                    </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link variant="body2" to="/login">
                                 Already have an account? Sign in
-              </Link>
+                            </Link>
                         </Grid>
                     </Grid>
                 </form>

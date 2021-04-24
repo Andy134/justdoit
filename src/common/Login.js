@@ -4,13 +4,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useState } from 'react';
-import {useAuth} from '../autherns/AuthContext'
+import {Link, useHistory} from 'react-router-dom';
+import { useAuth } from '../autherns/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -39,11 +39,22 @@ export default function Login() {
         email: "",
         password: ""
     }
+    const { login } = useAuth();
     const [form, setForm] = useState(initState);
+    const [loading, setLoading] = useState(false);
+    const history = useHistory()
 
-    function handleOnSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        e.stopPropagation()
+        try {
+            setLoading(true)
+            await login(form.email, form.password)
+            history.push("/")
+        } catch (error) {
+            alert("Failed to log in")
+            console.log(error)
+        }
+        setLoading(false)
     }
 
     function handleChange(e) {
@@ -60,7 +71,7 @@ export default function Login() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -97,17 +108,18 @@ export default function Login() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        disabled={loading}
                     >
                         Sign In
-          </Button>
-                    <Grid container>
-                        <Grid item xs>
+                    </Button>
+                    <Grid container justify="flex-end">
+                        {/* <Grid item xs>
                             <Link href="#" variant="body2">
                                 Forgot password?
-              </Link>
-                        </Grid>
+                            </Link>
+                        </Grid> */}
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="#" variant="body2" to="/signup">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
