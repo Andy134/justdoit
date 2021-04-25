@@ -1,8 +1,6 @@
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
 import Container from '@material-ui/core/Container';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -14,6 +12,7 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../autherns/AuthContext';
 import { alertConstant, alertSeverity } from '../constants/alert.constants';
+import FormValidationLabel from '../common/FormValidationLabel';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,8 +39,9 @@ export default function SignUp() {
     const { signup } = useAuth();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ email: "", password: "" });
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [validateConfirmPassword, setValidateConfirmPassword] = useState(false);
 
     function handleChange(e) {
         const { id, value } = e.target;
@@ -70,29 +70,6 @@ export default function SignUp() {
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="lname"
-                            />
-                        </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
@@ -119,10 +96,18 @@ export default function SignUp() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type="confirmPassword"
+                                id="confirmPassword"
+                                autoComplete="current-password"
+                                
                             />
+                            <FormValidationLabel message={'Password not match'} show={validateConfirmPassword} />
                         </Grid>
                     </Grid>
                     <Button
