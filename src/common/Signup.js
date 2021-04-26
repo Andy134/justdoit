@@ -12,7 +12,6 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../autherns/AuthContext';
 import { alertConstant, alertSeverity } from '../constants/alert.constants';
-import FormValidationLabel from '../common/FormValidationLabel';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,7 +40,6 @@ export default function SignUp() {
     const [form, setForm] = useState({ email: "", password: "" });
     const dispatch = useDispatch();
     const history = useHistory();
-    const [validateConfirmPassword, setValidateConfirmPassword] = useState(false);
 
     function handleChange(e) {
         const { id, value } = e.target;
@@ -52,6 +50,7 @@ export default function SignUp() {
         try {
             setLoading(true)
             await signup(form.email, form.password)
+            dispatch({ type: alertConstant.HIDE_ALERT })
             history.push("/")
         } catch (error) {
             dispatch({ type: alertConstant.SHOW_ALERT, severity: alertSeverity.Error, message: error.message })
@@ -105,9 +104,7 @@ export default function SignUp() {
                                 type="confirmPassword"
                                 id="confirmPassword"
                                 autoComplete="current-password"
-                                
                             />
-                            <FormValidationLabel message={'Password not match'} show={validateConfirmPassword} />
                         </Grid>
                     </Grid>
                     <Button

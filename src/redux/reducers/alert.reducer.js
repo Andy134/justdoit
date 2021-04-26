@@ -6,7 +6,8 @@ const initState = {
     message: null
 }
 
-export function alert(state, action) {
+export function alert(state = initState, action) {
+    console.log(state)
     const { severity, message } = action
     switch (action.type) {
         case alertConstant.SHOW_ALERT:
@@ -14,6 +15,6 @@ export function alert(state, action) {
         case alertConstant.HIDE_ALERT:
             return { ...state, show: false, message: null }
         default:
-            return initState
+            return state
     }
 }

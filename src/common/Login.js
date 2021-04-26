@@ -52,9 +52,10 @@ export default function Login() {
         try {
             setLoading(true)
             await login(form.email, form.password)
+            dispatch({ type: alertConstant.HIDE_ALERT })
             history.push("/")
         } catch (error) {
-            dispatch({ type: alertConstant.SHOW_ALERT, message: error.message, severity: alertSeverity.Error})
+            dispatch({ type: alertConstant.SHOW_ALERT, message: error.message, severity: alertSeverity.Error })
             console.log(error)
         }
         setLoading(false)
@@ -72,7 +73,7 @@ export default function Login() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Log in
                 </Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
@@ -113,7 +114,7 @@ export default function Login() {
                         className={classes.submit}
                         disabled={loading}
                     >
-                        Sign In
+                        Log In
                     </Button>
                     <Grid container justify="flex-end">
                         {/* <Grid item xs>

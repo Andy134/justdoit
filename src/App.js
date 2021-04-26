@@ -84,7 +84,7 @@ function AppContain(props) {
             <Navbar />
             <Toolbar id="back-to-top-anchor" />
             <Container maxWidth={`sm`}>
-              <AlertCommon/>
+              <AlertCommon />
               <Switch>
                 <PrivateRoute path="/" exact component={() => <Homepage />} />
                 <Route path="/login">
@@ -97,7 +97,7 @@ function AppContain(props) {
             </Container>
           </Router>
         </AuthProvider>
-        <Toolbar/>
+        <Toolbar />
         <ScrollTop {...props}>
           <Fab color="secondary" size="small" aria-label="scroll back to top">
             <KeyboardArrowUpIcon />

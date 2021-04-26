@@ -6,7 +6,7 @@ const initState = {
     done: []
 }
 
-export function todo(state, action) {
+export function todo(state = initState, action) {
     const { id } = action
     switch (action.type) {
         case todoConstants.FETCH_DATA:
@@ -52,6 +52,6 @@ export function todo(state, action) {
             deleting.splice(deleteIndex, 1)
             return { ...state, todos: deleting}
         default:
-            return initState
+            return state
     }
 }
