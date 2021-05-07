@@ -1,12 +1,12 @@
-import API from "../Api";
+import {API} from "../Api";
 
 export const todoService = {
-    getInprocessLst
+    getTodoLst
 }
 
-const TODO_API_ENDPOINT = "/todo"
+const TODO_API_ENDPOINT = "/todos"
 
-function getInprocessLst(postType) {
-    return API.get(TODO_API_ENDPOINT + "?" + "postType=" + postType)
+function getTodoLst(postType, email) {
+    return API.get(TODO_API_ENDPOINT + "?" + "postType=" + postType + "&email=" + email)
 }
 

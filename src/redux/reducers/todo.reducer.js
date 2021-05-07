@@ -13,7 +13,6 @@ export function todo(state = initState, action) {
             return state
         case todoConstants.GET_DATA:
             const { todos, done } = action;
-            console.log(todos)
             state = {
                 ...state,
                 todos: todos,

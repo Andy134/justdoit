@@ -1,2 +1,2 @@
-export const IN_PROGRESS = 0
-export const COMPLETE = 1
+export const IN_PROGRESS = 'IN_PROGRESS'
+export const COMPLETE = 'COMPLETE'
