@@ -58,7 +58,7 @@ export default function PostItem({ data, type }) {
             <ListItem button onClick={handleClick}>
                 <ListItemAvatar>
                     <Avatar
-                        alt={`Avatar n°${critical + 1}`}
+                        alt={`Avatar n°${critical}`}
                         src={`/static/images/avatar/${critical}.png`}
                     />
                 </ListItemAvatar>

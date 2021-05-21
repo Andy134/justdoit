@@ -1,11 +1,14 @@
-import { Button, Fade, TextField } from '@material-ui/core';
+import { Button, Fade, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Critical } from '../../constants/Critical';
-import { todoConstants } from '../../constants/todo.constants'
+import * as PostType from '../../constants/PostType';
+import { todoConstants } from '../../constants/todo.constants';
+import { todoService } from '../../services/todo.service';
+import { useAuth } from '../../autherns/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    // border: '2px solid #000',
-    // boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   root: {
@@ -53,11 +54,13 @@ export default function CreateModal({ show, handleCloseModal }) {
 function ModalBody({ handleCloseModal }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // { id: 1001, title: "Todo 1", content: "content here 1", critical: Critical.IMPORTANT }
+  const { currentUser } = useAuth();
   const [todo, setTodo] = useState({
     title: '',
     content: '',
-    critical: Critical.TODO
+    critical: '',
+    postType: PostType.IN_PROGRESS,
+    email: currentUser.email
   })
 
   function handleChange(e) {
@@ -67,7 +70,14 @@ function ModalBody({ handleCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch({ type: todoConstants.ADD_NEW, todo: todo })
+    todoService.createNew(todo).then((res) => {
+      console.log(res)
+      if (201 === res.status) {
+        dispatch({ type: todoConstants.ADD_NEW, todo: todo })
+      }
+    }).catch((err) => {
+      alert('Create new todo failed')
+    });
     handleCloseModal()
   }
 
@@ -77,12 +87,29 @@ function ModalBody({ handleCloseModal }) {
       <div>
         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
           <div>
-            <TextField label="Title" variant="outlined" id="title" onChange={handleChange} />
+            <TextField label="Title" id="title" onChange={handleChange} fullWidth={true} value={todo.title}/>
           </div>
           <div>
-            <TextField multiline rows={4} label="Content" variant="outlined" id="content" onChange={handleChange} />
+            <TextField multiline rows={3} rowsMax={6} label="Content" id="content" onChange={handleChange} fullWidth={true} value={todo.content}/>
           </div>
           <div>
+            <FormControl fullWidth={true}>
+              <InputLabel id="critical-label">Age</InputLabel>
+              <Select
+                labelId="critical-label"
+                id="critical"
+                value={todo.critical}
+                onChange={handleChange}
+              >
+                <MenuItem value=''></MenuItem>
+                {Object.entries(Critical).map((item, index) => {
+                  return <MenuItem key={index} value={item[0]}>{item[1]}</MenuItem>
+                })}
+              </Select>
+            </FormControl>
+          </div>
+          <br />
+          <div centered={true}>
             <Button type="submit" color="primary">Save</Button>
             <Button onClick={() => handleCloseModal()}>Cancel</Button>
           </div>

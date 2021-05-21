@@ -27,10 +27,9 @@ export default function PostMenu({ id, critical }) {
         setAnchorEl(null);
     }
 
-    const handleUpdateStatus = (e) => {
+    const handleUpdateStatus = (crt) => {
         setAnchorEl(null);
-        let value = e.target.value;
-        dispatch({ type: todoConstants.UPDATE_CRITICAL, id: id, critical: value })
+        dispatch({ type: todoConstants.UPDATE_CRITICAL, id: id, critical: crt })
     };
 
     const handleDelete = () => {
@@ -49,12 +48,11 @@ export default function PostMenu({ id, critical }) {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-                value={critical}
             >
                 {
                     Object.entries(Critical).map((item, index) => {
-                        return <MenuItem key={index} onClick={handleUpdateStatus} value={item[1]} selected={item[1] === critical}>
-                            {item[0]}
+                        return <MenuItem key={index} onClick={()=>handleUpdateStatus(item[0])} selected={critical === item[0]}>
+                            {item[1]}
                         </MenuItem>
                     })
                 }

@@ -7,7 +7,6 @@ const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     todo,
     alert
-}
-)
+})
 
 export default rootReducer
